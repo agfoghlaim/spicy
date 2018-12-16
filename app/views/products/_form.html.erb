@@ -1,0 +1,44 @@
+<%= form_with(model: product, local: true) do |form| %>
+  <% if product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <h4>Categories</h4>
+  <div class="field">
+    <p>
+   <%= hidden_field_tag "product[category_ids][]", nil %>
+    <% Category.all.each do |cat| %>
+      <%= check_box_tag "product[category_ids][]",  cat.id, @product.category_ids.include?(cat.id), id: dom_id(cat) %>
+      <%= label_tag dom_id(cat), cat.title %>
+      <%= link_to  "edit category", edit_category_path(cat.id) %><br>
+    <% end %>
+  </p>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
