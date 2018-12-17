@@ -11,8 +11,43 @@
       </ul>
     </div>
   <% end %>
-  <%= f.input :title%>
-  <%= f.input :description %>
+
+  <div class="form-group">
+  <%= f.input :title, class:'form-control' %>
+  <%= f.input :description, class:'form-control' %>
+  </div>
+
+  <h5>Choose Products to Associate with this recipe</h5>
+   <div class="field">
+      <p>
+    <%= hidden_field_tag "recipe[product_ids][]", nil %>
+      <% Product.all.each do |cat| %>
+        <%= check_box_tag "recipe[product_ids][]",  cat.id, @recipe.product_ids.include?(cat.id), id: dom_id(cat) %>
+        <%= label_tag dom_id(cat), cat.title %>
+        <%= link_to  "edit product", edit_product_path(cat.id) %><br>
+      <% end %>
+    </p>
+    </div>
+
+      <h3>Ingredients</h3>
+      <div id='ingredients'>
+        <%= f.simple_fields_for :ingredients do |ingredient| %>
+          <%= render 'ingredient_fields', :f => ingredient %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association 'add ingredients', f, :ingredients %>
+        </div>
+      </div>
+
+      <h3>Directions</h3>
+      <div id='directions'>
+        <%= f.simple_fields_for :directions do |direction| %>
+          <%= render 'direction_fields', :f => direction %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association 'add directions', f, :directions %>
+        </div>
+      </div>
 
  
 
