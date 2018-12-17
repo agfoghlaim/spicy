@@ -2,6 +2,7 @@
     <h1>Show Recipe Page</h1>
     <h2>
     <%= @recipe.title %>
+    <p><%= image_tag @recipe.recipeimg %></p>
     <small>
         <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
         <%= link_to 'Back', recipes_path %> |
@@ -13,9 +14,25 @@
 
 
     <h3>Ingredients/Products</h3>
-    <% @recipe.products.each do |p| %>
-    <strong><%= link_to p.title, product_path(p) %></strong>
+    <ul>
+        <% @recipe.products.each do |p| %>
+        <li>
+        <strong><%= link_to p.title, product_path(p) %></strong>
+        <small> Only<%= link_to p.price, product_path(p) %> per kg</small>
+        </li>
+        <% end %>
+
+        <% @recipe.anyingredients.each do |p| %>
+        <li><%= p.name %></li>
+        <% end %><br>
+    </ul>
+
+    <h3>Ingredients/Products</h3>
+    <ol>
+    <% @recipe.directions.each do |p| %>
+    <li><%= p.step %></li>
     <% end %><br>
+    </ol>
 
    
 </div>
