@@ -51,6 +51,8 @@
         </div>
       </div>
 
+ 
+
       <h3>Image</h3>
         <p>
       	  <%= f.label :recipeimg %>
@@ -62,3 +64,30 @@
 
   <%= f.button :submit %>
 <% end %>
+
+     <h3>Add Directions no cocoon</h3>
+      <div id='directionss'>
+        <%= form_tag(save_direction_path, method: :post) do %>
+        step
+          <%= text_field_tag :step %>
+          <%= hidden_field_tag :recipe_id, @recipe.id %>
+          <div><%= submit_tag 'Save' %></div>
+        <% end %>
+      </div>
+    
+      <h3>Remove Directions no cocoon</h3>
+      <div id='directions-remove'>
+
+          <% @recipe.directions.each do |direction| %>
+
+            <%= form_tag(remove_direction_path, method: :post) do %>
+              <%= direction.step %>
+              <%= hidden_field_tag :recipe_id, @recipe.id %>
+              <%= hidden_field_tag :direction_id, direction.id %>
+              <div><%= submit_tag 'remove' %></div>
+            <% end %>
+
+           
+          <% end %>
+        
+      </div>
