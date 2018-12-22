@@ -55,10 +55,12 @@ class RecipesController < ApplicationController
   end
 
   def remove_direction
-    puts "what"
+   
     recipe = Recipe.find(params[:recipe_id])
     direction = Direction.find(params[:direction_id])
     recipe.directions.delete(direction)
+
+    #refresh
     redirect_to edit_recipe_path(recipe.id)
     # The collection.delete method removes one or more objects from the collection by setting their foreign keys to NULL
 
@@ -66,6 +68,14 @@ class RecipesController < ApplicationController
 
     # Additionally, objects will be destroyed if they're associated with dependent: :destroy, and deleted if they're associated with dependent: :delete_all.
 
+  end
+
+  def edit_direction
+    #recipe = Recipe.find(params[:recipe_id])
+    direction = Direction.find(params[:direction_id])
+    
+  direction.update(:step => params[:step])
+    puts "what"
   end
 
 

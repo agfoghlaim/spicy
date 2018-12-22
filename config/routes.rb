@@ -10,4 +10,8 @@ match '/recipes/save_direction' => 'recipes#save_direction', :via => [:post], :a
 
 match '/recipes/remove_direction' => 'recipes#remove_direction', :via => [:post], :as => 'remove_direction'
 
+match '/recipes/edit_direction' => 'recipes#edit_direction', :via => [:post], :as => 'edit_direction'
+
+
+
 end
