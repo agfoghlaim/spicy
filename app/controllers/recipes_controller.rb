@@ -91,16 +91,7 @@ class RecipesController < ApplicationController
    
     anyingredient = Anyingredient.find(params[:anyingredient_id])
     @recipe.anyingredients.delete(anyingredient)
-
-    #refresh TODO Needs js
     redirect_to edit_recipe_path(@recipe.id)
-
-
-    # The collection.delete method removes one or more objects from the collection by setting their foreign keys to NULL
-
-    # eg @author.books.delete(@book1)
-
-    # Additionally, objects will be destroyed if they're associated with dependent: :destroy, and deleted if they're associated with dependent: :delete_all.
 
   end
 

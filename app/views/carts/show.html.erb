@@ -1,0 +1,7 @@
+<% @cart.oitems.each do |i|%>
+
+weight: <%= i.weight %>g
+<%= i.product.title %>
+<%= link_to  "remove item", i, method: :delete %>
+<% end %>
+

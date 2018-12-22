@@ -3,6 +3,7 @@ class Product < ApplicationRecord
   has_many :ingredients,inverse_of: :product, dependent: :destroy
   has_many :categories, through: :prodcats
   has_many :recipes, through: :ingredients
+  has_many :oitems, dependent: :delete_all
 
   validates :title, presence: true
   

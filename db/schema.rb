@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_080618) do
+ActiveRecord::Schema.define(version: 2018_12_22_104609) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(version: 2018_12_17_080618) do
     t.index ["recipe_id"], name: "index_anyingredients_on_recipe_id"
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.string "status"
+    t.string "billing"
+    t.string "shipping"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -63,6 +71,17 @@ ActiveRecord::Schema.define(version: 2018_12_17_080618) do
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_ingredients_on_product_id"
     t.index ["recipe_id"], name: "index_ingredients_on_recipe_id"
+  end
+
+  create_table "oitems", force: :cascade do |t|
+    t.integer "weight"
+    t.decimal "total", precision: 12, scale: 2
+    t.integer "product_id"
+    t.integer "cart_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_oitems_on_cart_id"
+    t.index ["product_id"], name: "index_oitems_on_product_id"
   end
 
   create_table "prodcats", force: :cascade do |t|
