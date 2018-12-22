@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
-  before_action :find_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :find_recipe, only: [:show, :edit, :update, :destroy, :save_direction, :remove_direction, :save_anyingredient, :remove_anyingredient]
+
   def index
     @recipes = Recipe.all
   end
@@ -43,12 +44,11 @@ class RecipesController < ApplicationController
   end
 
   def save_direction
-    recipe = Recipe.find(params[:recipe_id])
-    direction = recipe.directions.build(:step => params[:step])
+    direction = @recipe.directions.build(:step => params[:step])
 
-     if recipe.save
+     if @recipe.save
       #refresh page
-      redirect_to edit_recipe_path(recipe.id)
+      redirect_to edit_recipe_path(@recipe.id)
      else
        puts "#{params[:step]}"
     end
@@ -56,26 +56,57 @@ class RecipesController < ApplicationController
 
   def remove_direction
    
-    recipe = Recipe.find(params[:recipe_id])
     direction = Direction.find(params[:direction_id])
-    recipe.directions.delete(direction)
+    @recipe.directions.delete(direction)
 
-    #refresh
-    redirect_to edit_recipe_path(recipe.id)
+    #refresh TODO Needs js
+    redirect_to edit_recipe_path(@recipe.id)
+
+
     # The collection.delete method removes one or more objects from the collection by setting their foreign keys to NULL
 
-    #@author.books.delete(@book1)
+    # eg @author.books.delete(@book1)
 
     # Additionally, objects will be destroyed if they're associated with dependent: :destroy, and deleted if they're associated with dependent: :delete_all.
 
   end
 
   def edit_direction
-    #recipe = Recipe.find(params[:recipe_id])
     direction = Direction.find(params[:direction_id])
-    
-  direction.update(:step => params[:step])
-    puts "what"
+    direction.update(:step => params[:step])
+  end
+
+  def save_anyingredient
+    anyingredient = @recipe.anyingredients.build(:name => params[:name])
+
+     if @recipe.save
+      #refresh page
+      redirect_to edit_recipe_path(@recipe.id)
+     else
+       puts "#{params[:name]}"
+    end
+  end
+
+  def remove_anyingredient
+   
+    anyingredient = Anyingredient.find(params[:anyingredient_id])
+    @recipe.anyingredients.delete(anyingredient)
+
+    #refresh TODO Needs js
+    redirect_to edit_recipe_path(@recipe.id)
+
+
+    # The collection.delete method removes one or more objects from the collection by setting their foreign keys to NULL
+
+    # eg @author.books.delete(@book1)
+
+    # Additionally, objects will be destroyed if they're associated with dependent: :destroy, and deleted if they're associated with dependent: :delete_all.
+
+  end
+
+  def edit_anyingredient
+    anyingredient = Anyingredient.find(params[:anyingredient_id])
+    anyingredient.update(:name => params[:name])
   end
 
 

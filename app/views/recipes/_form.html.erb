@@ -31,25 +31,7 @@
     </p>
     </div>
 
-      <h3>Other Ingredients</h3>
-      <div id='anyingredients'>
-        <%= f.simple_fields_for :anyingredients do |anyingredient| %>
-          <%= render 'anyingredient_fields', :f => anyingredient %>
-        <% end %>
-        <div class='links'>
-          <%= link_to_add_association 'add anyingredients', f, :anyingredients %>
-        </div>
-      </div>
-
-      <h3>Directions</h3>
-      <div id='directions'>
-        <%= f.simple_fields_for :directions do |direction| %>
-          <%= render 'direction_fields', :f => direction %>
-        <% end %>
-        <div class='links'>
-          <%= link_to_add_association 'Add Another', f, :directions, class: 'btn btn-success btn-sm' %>
-        </div>
-      </div>
+     
 
  
 
@@ -70,7 +52,7 @@
         <%= form_tag(save_direction_path, method: :post) do %>
         step
           <%= text_field_tag :step %>
-          <%= hidden_field_tag :recipe_id, @recipe.id %>
+          <%= hidden_field_tag :id, @recipe.id %>
           <div><%= submit_tag 'Save' %></div>
         <% end %>
       </div>
@@ -81,15 +63,51 @@
 
             <%= form_tag(remove_direction_path, method: :post) do %>
               <%= direction.step %>
-              <%= hidden_field_tag :recipe_id, @recipe.id %>
+              <%= hidden_field_tag :id, @recipe.id %>
               <%= hidden_field_tag :direction_id, direction.id %>
               <div><%= submit_tag 'remove' %></div>
             <% end %>
 
              <%= form_tag(edit_direction_path, method: :post) do %>
               <%= text_field_tag :step, direction.step %>
-              <%= hidden_field_tag :recipe_id, @recipe.id %>
+              <%= hidden_field_tag :id, @recipe.id %>
               <%= hidden_field_tag :direction_id, direction.id %>
+              <div><%= submit_tag 'update' %></div>
+            <% end %>
+
+          <% end %>
+      </div>
+
+
+
+
+
+
+        <h3>Add Any Ingredients s no cocoon</h3>
+      <div id='anyingredients-add'>
+        <%= form_tag(save_anyingredient_path, method: :post) do %>
+        step
+          <%= text_field_tag :name %>
+          <%= hidden_field_tag :id, @recipe.id %>
+          <div><%= submit_tag 'Save' %></div>
+        <% end %>
+      </div>
+    
+      <h3>Remove Any Ingredient no cocoon</h3>
+      <div id='anyingredient-remove'>
+          <% @recipe.anyingredients.each do |anyingredient| %>
+
+            <%= form_tag(remove_anyingredient_path, method: :post) do %>
+              <%= anyingredient.name %>
+              <%= hidden_field_tag :id, @recipe.id %>
+              <%= hidden_field_tag :anyingredient_id, anyingredient.id %>
+              <div><%= submit_tag 'remove' %></div>
+            <% end %>
+
+             <%= form_tag(edit_anyingredient_path, method: :post) do %>
+              <%= text_field_tag :name, anyingredient.name %>
+              <%= hidden_field_tag :id, @recipe.id %>
+              <%= hidden_field_tag :anyingredient_id, anyingredient.id %>
               <div><%= submit_tag 'update' %></div>
             <% end %>
 
