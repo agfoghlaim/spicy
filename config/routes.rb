@@ -27,6 +27,7 @@ match '/recipes/remove_anyingredient' => 'recipes#remove_anyingredient', :via =>
 
 match '/recipes/edit_anyingredient' => 'recipes#edit_anyingredient', :via => [:post], :as => 'edit_anyingredient'
 
+match '/carts/associate_user_with_cart' => 'carts#associate_user_with_cart', :via => [:post], :as => 'associate_user_with_cart'
 
 
 end
