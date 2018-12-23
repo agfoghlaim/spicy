@@ -38,6 +38,8 @@ gem 'cocoon', '~> 1.2', '>= 1.2.12'
 gem 'bootstrap-sass', '~> 3.4'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+
+gem 'devise', '~> 4.5'
 gem 'stripe', '~> 4.4'
 
 group :development, :test do

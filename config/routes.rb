@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  #devise_for :users
+
+  #need to extend devise ctrl to deal with the phone, address etc fields
+  devise_for :users, controllers: {
+    registrations: 'registrations'
+  }
   resources :products
   resources :categories
   resources :recipes
